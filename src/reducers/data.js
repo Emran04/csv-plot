@@ -3,15 +3,15 @@ import {
 } from "../constants/ActionTypes";
 
 const initialState = {
-  data: null
+    data: null
 };
 
 export default function data(state = initialState, action) {
-  switch (action.type) {
-    case LOAD_DATA:
-      return {data: action.payload};
+    switch (action.type) {
+        case LOAD_DATA:
+            return { data: action.payload };
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 }
