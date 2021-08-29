@@ -1,18 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 
 const Plot = createPlotlyComponent(Plotly);
 
 const PlotScatter = ({dataArray}) => {
-    const [revision, setRevision] = useState(null);
-
-    useEffect(() => {
-        
-        return () => {
-            setRevision(true)
-        }
-    }, [setRevision])
 
     const dataObj = {}
 
@@ -50,7 +42,7 @@ const PlotScatter = ({dataArray}) => {
 
     return (
         <div>
-            <Plot revision={revision} data={plotData} layout={layout} />
+            <Plot data={plotData} layout={layout} />
         </div>
     )
 }

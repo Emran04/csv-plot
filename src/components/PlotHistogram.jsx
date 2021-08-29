@@ -1,19 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 
 const Plot = createPlotlyComponent(Plotly);
 
 const PlotHistogram = ({dataArray}) => {
-    const [revision, setRevision] = useState(null);
-
-    useEffect(() => {
-        
-        return () => {
-            setRevision(true)
-        }
-    }, [setRevision])
-
     const dataObj = {}
 
     for (let i = 0; i < dataArray.length; i++) {
@@ -32,13 +23,12 @@ const PlotHistogram = ({dataArray}) => {
     for (const objProp in dataObj) {
         if (objProp !== 'Date') {
             plotData.push({
-                x: dataObj['Date'],
-                y: dataObj[objProp],
-                mode: "markers",
+                x: dataObj[objProp],
                 type: "histogram",
-                name: objProp,
-                text: dataObj[objProp],
-                marker: { size: 12 },
+                opacity: 0.5,
+                marker: {
+                    color: 'green',
+                },
             })
         }
     }
@@ -50,7 +40,7 @@ const PlotHistogram = ({dataArray}) => {
 
     return (
         <div>
-            <Plot revision={revision} data={plotData} layout={layout} />
+            <Plot data={plotData} layout={layout} />
         </div>
     )
 }
