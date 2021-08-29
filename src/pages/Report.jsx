@@ -1,47 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import { CSVLink } from "react-csv";
 import { connect } from "react-redux";
-import Plotly from "plotly.js-basic-dist";
-import createPlotlyComponent from "react-plotly.js/factory";
 import TableStyles from "./../styles/Table.style";
 import Table from "./../components/Table";
 import columns from "./../constants/dataColumns";
 import Container from "./../styles/Container.style";
-
-const Plot = createPlotlyComponent(Plotly);
+import PlotScatter from './../components/PlotScatter'
+import PlotHistogram from './../components/PlotHistogram'
 
 const Report = ({ data }) => {
-    var trace1 = {
-        x: ["2021-08-22", "2021-08-23", "2021-08-24", "2021-08-25", "2021-08-28"],
-        y: [1, 6, 3, 6, 1],
-        mode: "markers",
-        type: "scatter",
-        name: "Team A",
-        text: ["A-1", "A-2", "A-3", "A-4", "A-5"],
-        marker: { size: 12 },
-    };
 
-    var trace2 = {
-        x: ["2021-08-22", "2021-08-23", "2021-08-24", "2021-08-25", "2021-08-28"],
-        y: [4, 1, 7, 1, 4],
-        mode: "markers",
-        type: "scatter",
-        name: "Team B",
-        text: ["B-a", "B-b", "B-c", "B-d", "B-e"],
-        marker: { size: 12 },
-    };
-
-    var demoData = [trace1, trace2];
-
-    var layout = {
-        xaxis: { type: "date" },
-        yaxis: {
-            range: [0, 8],
-        },
-        title: "Data Labels Hover",
-    };
+    const dataArray = data.data ? data.data : [];
 
     const tableColumns = React.useMemo(() => columns, []);
+
+    const tabs = ['scatter', 'box', 'histogram'];
+
+    const [activeTab, setActiveTab] = useState(tabs[0]);
+
+    const handleTabChange = (tab) => {
+        setActiveTab(tab)
+    }
+
+    const renderTabs = () => {
+        return tabs.map(item => {
+            let tabTitle = ''
+            if (item === 'scatter') {
+                tabTitle = 'Scatter Plot';
+            } else if (item === 'box') {
+                tabTitle = 'Box Plot';
+            } else if (item === 'histogram') {
+                tabTitle = 'Histogram';
+            }
+            return <button
+                key={`tab-${item}`}
+                onClick={() => handleTabChange(item)}
+            >{tabTitle}</button>
+        })
+    }
 
     return (
         <div>
@@ -64,7 +60,16 @@ const Report = ({ data }) => {
             <Container>
                 <div className="plot">
                     <h2>Plot</h2>
-                    <Plot data={demoData} layout={layout} />
+                    {renderTabs()}
+                    {
+                        activeTab === 'scatter' && <PlotScatter dataArray={dataArray} />
+                    }
+                    {
+                        activeTab === 'box' && <PlotHistogram dataArray={dataArray} />
+                    }
+                    {
+                        activeTab === 'histogram' && <PlotHistogram dataArray={dataArray} />
+                    }
                 </div>
             </Container>
         </div>

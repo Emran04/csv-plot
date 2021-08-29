@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loadData } from "./../actions";
-import headerColumns from './../constants/dataColumns'
+import headerColumns from './../constants/dataColumns';
+import Container from "./../styles/Container.style";
 
 const UploadCSV = ({ dispatch }) => {
     const [file, setFile] = useState(null);
@@ -44,7 +45,7 @@ const UploadCSV = ({ dispatch }) => {
     };
 
     return (
-        <div>
+        <Container>
             <form onSubmit={handleSubmit}>
                 <input
                     type="file"
@@ -54,7 +55,7 @@ const UploadCSV = ({ dispatch }) => {
                 />
                 <input type="submit" value="Upload file" />
             </form>
-        </div>
+        </Container>
     );
 };
 

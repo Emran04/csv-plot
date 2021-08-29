@@ -10,11 +10,6 @@ import reducer from "./reducers";
 const middleware = [thunk];
 const store = createStore(reducer, applyMiddleware(...middleware));
 
-
-function Home() {
-    return <h2>Home</h2>;
-}
-
 function App() {
     return (
         <Provider store={store}>
@@ -26,22 +21,16 @@ function App() {
                                 <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <Link to="/upload">Upload file</Link>
-                            </li>
-                            <li>
                                 <Link to="/report">Report</Link>
                             </li>
                         </ul>
                     </nav>
                     <Switch>
-                        <Route path="/upload">
-                            <UploadCSV />
-                        </Route>
                         <Route path="/report">
                             <Report />
                         </Route>
                         <Route path="/">
-                            <Home />
+                            <UploadCSV />
                         </Route>
                     </Switch>
                 </div>
