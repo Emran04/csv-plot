@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { loadData } from "./../actions";
 import headerColumns from './../constants/dataColumns';
 import Container from "./../styles/Container.style";
+import {Button} from "./../styles/components.style";
 
 const UploadCSV = ({ dispatch }) => {
     const [file, setFile] = useState(null);
@@ -67,7 +68,9 @@ const UploadCSV = ({ dispatch }) => {
                         id="file-field"
                         onChange={handleOnChange}
                     />
-                    <input type="submit" value="Upload file" />
+                    <Button
+                        type="submit"
+                    >Upload file</Button>
                 </form>
             </div>
         </Container>

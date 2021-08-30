@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { CSVLink } from "react-csv";
 import { connect } from "react-redux";
 import TableStyles from "./../styles/Table.style";
@@ -8,6 +8,8 @@ import Container from "./../styles/Container.style";
 import PlotScatter from './../components/PlotScatter'
 import PlotHistogram from './../components/PlotHistogram';
 import BoxPlot from './../components/BoxPlot';
+import TabBar from "./../styles/TabBar.style";
+import { LinkButton } from "./../styles/components.style";
 
 const Report = ({ data }) => {
 
@@ -46,9 +48,11 @@ const Report = ({ data }) => {
                 <div className="data-table">
                     <h2>Report</h2>
                     {data.data && (
-                        <CSVLink data={data.data} filename={"data.csv"}>
-                            Download me
-                        </CSVLink>
+                        <LinkButton>
+                            <CSVLink data={data.data} filename={"data.csv"}>
+                                Download csv
+                            </CSVLink>
+                        </LinkButton>
                     )}
 
                     {data.data && (
@@ -61,7 +65,9 @@ const Report = ({ data }) => {
             <Container>
                 <div className="plot">
                     <h2>Plot</h2>
-                    {renderTabs()}
+                    <TabBar>
+                        {renderTabs()}
+                    </TabBar>
                     {
                         activeTab === 'scatter' && <PlotScatter dataArray={dataArray} />
                     }
