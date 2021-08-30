@@ -4,7 +4,7 @@ import createPlotlyComponent from "react-plotly.js/factory";
 
 const Plot = createPlotlyComponent(Plotly);
 
-const PlotHistogram = ({dataArray}) => {
+const BoxPlot = ({ dataArray }) => {
     const dataObj = {}
 
     for (let i = 0; i < dataArray.length; i++) {
@@ -44,23 +44,24 @@ const PlotHistogram = ({dataArray}) => {
         let value = parseFloat(dataObj[objProp])
         if (objProp !== 'Date' && typeof value === 'number') {
             plotData.push({
-                x: dataObj['Date'],
                 y: dataObj[objProp],
-                type: "histogram",
-                autobinx: false, 
-                histnorm: "count",
-                opacity: 0.5,
-                marker: {
-                    color: colors[dataObjCount],
-                },
+                x: dataObj['Date'],
+                name: objProp,
+                marker: { color: colors[dataObjCount] },
+                type: 'box',
+                boxmean: false,
+                orientation: 'h'
             })
             dataObjCount++;
         }
     }
 
     const layout = {
-        xaxis: { type: "date" },
-        title: "Histogram",
+        yaxis: {
+            title: 'Box plot',
+            zeroline: false
+        },
+        boxmode: 'group'
     };
 
     return (
@@ -70,4 +71,4 @@ const PlotHistogram = ({dataArray}) => {
     )
 }
 
-export default PlotHistogram
+export default BoxPlot

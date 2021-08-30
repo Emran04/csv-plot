@@ -6,7 +6,8 @@ import Table from "./../components/Table";
 import columns from "./../constants/dataColumns";
 import Container from "./../styles/Container.style";
 import PlotScatter from './../components/PlotScatter'
-import PlotHistogram from './../components/PlotHistogram'
+import PlotHistogram from './../components/PlotHistogram';
+import BoxPlot from './../components/BoxPlot';
 
 const Report = ({ data }) => {
 
@@ -65,7 +66,7 @@ const Report = ({ data }) => {
                         activeTab === 'scatter' && <PlotScatter dataArray={dataArray} />
                     }
                     {
-                        activeTab === 'box' && <PlotHistogram dataArray={dataArray} />
+                        activeTab === 'box' && <BoxPlot dataArray={dataArray} />
                     }
                     {
                         activeTab === 'histogram' && <PlotHistogram dataArray={dataArray} />
