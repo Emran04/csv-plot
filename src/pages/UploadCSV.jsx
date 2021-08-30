@@ -6,9 +6,16 @@ import Container from "./../styles/Container.style";
 
 const UploadCSV = ({ dispatch }) => {
     const [file, setFile] = useState(null);
+    const [message, setMessage] = useState(null)
+    // const [isUploading, setIsUploading] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!file) {
+            setMessage('No file found')
+            return
+        }
+        setMessage('Processing...!')
         const reader = new FileReader();
         reader.onload = function (e) {
             const text = e.target.result;
@@ -17,9 +24,11 @@ const UploadCSV = ({ dispatch }) => {
         };
 
         reader.readAsText(file);
+        setMessage('File uploaded successfully!')
     };
 
     const handleOnChange = (e) => {
+        setMessage(null)
         setFile(e.target.files[0]);
     };
 
@@ -46,15 +55,21 @@ const UploadCSV = ({ dispatch }) => {
 
     return (
         <Container>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="file"
-                    name="file"
-                    id="file-field"
-                    onChange={handleOnChange}
-                />
-                <input type="submit" value="Upload file" />
-            </form>
+            <div className="upload-form">
+                {
+                    message && <p>{message}</p>
+                }
+
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="file"
+                        name="file"
+                        id="file-field"
+                        onChange={handleOnChange}
+                    />
+                    <input type="submit" value="Upload file" />
+                </form>
+            </div>
         </Container>
     );
 };
